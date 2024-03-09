@@ -1,25 +1,71 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Navigate,
+  Routes,
+} from "react-router-dom";
+import Layout from "./layout/Layout";
 
-function App() {
+// Import your page components
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Home from "./pages/Home";
+import NotFound from "./pages/NotFound";
+import AddBlog from "./pages/AddBlog";
+import WriteBlog from "./pages/WriteBlog/WriteBlog";
+import BlogDetails from "./pages/BlogDetails";
+import { useDispatch } from "react-redux";
+import { getParticularUser } from "./features/user/userSlice";
+import Account from "./pages/Account";
+
+const App = () => {
+  const [isLogin, setIsLogin] = useState(false);
+  const dispatch = useDispatch();
+
+  const userID = localStorage.getItem("userId");
+
+  useEffect(() => {
+    if (userID) {
+      dispatch(getParticularUser({ userID }));
+    } else {
+      setIsLogin(false);
+    }
+  }, [userID]);
+
+  // Array of routes that require the user to be authenticated
+  const protectedRoutes = [
+    { path: "/", element: <Home /> },
+    { path: "/add-blog", element: <AddBlog /> },
+    { path: "*", element: <NotFound /> },
+    { path: "/view-blog/:blogID", element: <BlogDetails /> },
+    { path: "/settings", element: <Account /> },
+  ];
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        {/* Routes for Login and Register which don't require the user to be authenticated */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+
+        {/* Map through protected routes and apply the same layout and authentication logic */}
+        {protectedRoutes.map(({ path, element }) => (
+          <Route
+            key={path}
+            path={path}
+            element={
+              userID ? (
+                <Layout>{element}</Layout>
+              ) : (
+                <Navigate replace to="/login" />
+              )
+            }
+          />
+        ))}
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;
