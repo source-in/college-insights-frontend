@@ -17,7 +17,7 @@ const Home = () => {
   const blogs = useSelector((state) => state.blogs.blogs);
 
   useEffect(() => {
-    dispatch(fetchNews());
+    // dispatch(fetchNews());
     dispatch(fetchAllBlogs());
   }, [dispatch]);
 
@@ -157,16 +157,16 @@ const Home = () => {
           <Typography variant="h5" sx={{ marginBottom: "10px" }}>
             Recent News
           </Typography>
-          {articles.map((article, index) => (
+          {/* {articles.slice(0, 5).map((article, index) => (
             <NewsCard
               key={index}
               title={article.title}
-              text={article.description}
-              imageUrl={article.image_url}
-              published_at={article.published_at}
+              text={article.content}
+              imageUrl={article.urlToImage}
+              published_at={article.publishedAt}
               url={article.url}
             />
-          ))}
+          ))} */}
         </div>
       </div>
     </div>

@@ -14,7 +14,7 @@ export const registerUser = createAsyncThunk(
   async (userData, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "http://localhost:3001/signin",
+        `${process.env.REACT_APP_API_URL}/signin`,
         userData
       );
       return response.data;
@@ -29,7 +29,7 @@ export const loginUser = createAsyncThunk(
   async (loginData, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "http://localhost:3001/login",
+        `${process.env.REACT_APP_API_URL}/login`,
         loginData
       );
       // Assuming the response body will have a token, adjust based on your actual response structure
@@ -46,7 +46,7 @@ export const getParticularUser = createAsyncThunk(
   async (userID, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "http://localhost:3001/manageUser/getPerticularUser",
+        `${process.env.REACT_APP_API_URL}/manageUser/getPerticularUser`,
         userID,
         {
           headers: {

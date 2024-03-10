@@ -64,7 +64,7 @@ const Blog = (blog) => {
                 marginTop: "5px",
               }}
             />
-            <p>{moment(blog?.createdAt).format("MMMM d, YYYY")}</p>
+            <p>{moment(blog?.createdAt).format("MMMM D, YYYY")}</p>
           </div>
         </div>
         <br />
@@ -74,7 +74,7 @@ const Blog = (blog) => {
           className="smallBlogContent"
         >
           {blog?.content?.length > 150
-            ? `${blog?.content.slice(0, 150)}...`
+            ? `${blog?.content.slice(0, 300)}...`
             : blog?.content}
         </p>
 
