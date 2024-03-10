@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import moment from "moment";
 
-const NewsCard = ({ title, text, imageUrl, published_at, url }) => {
+const NewsCard = ({ title, imageUrl, published_at, url }) => {
   const handleCardClick = () => {
     window.open(url, "_blank", "noopener,noreferrer");
   };
