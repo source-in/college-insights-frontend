@@ -46,12 +46,27 @@ export default function TopBar() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar className="justify-between">
-          <div>1</div>
+          <div>
+            <p
+              className="text-[#ff6c43] font-bold text-xl tracking-widest cursor-pointer"
+              onClick={() => navigate("/")}
+            >
+              COLLAGE INSIGHTS
+            </p>
+          </div>
           <div className="space-x-4">
             <Button
               variant="outlined"
               onClick={() => navigate("/add-blog")}
-              sx={{ color: "white", borderColor: "white" }}
+              sx={{
+                color: "white",
+                borderColor: "#d84f2a",
+                background: "#d84f2a",
+                "&:hover": {
+                  backgroundColor: "#f9744b", // Use the same background color on hover
+                  borderColor: "#f9744b", // Optional: Adjust the border color on hover if desired
+                },
+              }}
               endIcon={<AddIcon />}
             >
               Add Blog
@@ -66,6 +81,7 @@ export default function TopBar() {
             >
               <Avatar
                 {...stringAvatar(`${user?.firstName} ${user?.lastName}`)}
+                sx={{ bgcolor: "#d6c4bo" }}
               />
             </IconButton>
             <Menu

@@ -196,11 +196,15 @@ export default function AddBlog() {
         <div>
           <TextField
             id="blog-title"
-            label="Title"
+            placeholder="Title"
             value={title}
             variant="standard"
             onChange={handleTitleChange}
             fullWidth
+            sx={{
+              "& .MuiInputBase-input": { fontSize: "40px" },
+            }}
+            className="writeInput"
           />
           {imagePreview && (
             <Box sx={{ position: "relative" }}>
@@ -208,11 +212,11 @@ export default function AddBlog() {
                 className="shrink-0"
                 src={imagePreview}
                 alt="Preview"
-                style={{ width: "100%" }}
+                style={{ width: "100%", height: "350px" }}
               />
               <IconButton
                 onClick={handleRemoveImage}
-                size="small"
+                // size="large"
                 sx={{
                   position: "absolute",
                   top: 0,
@@ -220,7 +224,7 @@ export default function AddBlog() {
                   color: "error.main",
                 }}
               >
-                <CloseIcon />
+                <CloseIcon sx={{ fontSize: "30px !important" }} />
               </IconButton>
             </Box>
           )}
@@ -228,7 +232,7 @@ export default function AddBlog() {
             <IconButton
               aria-label="upload picture"
               component="label"
-              sx={{ position: "absolute", left: "-40px", top: "20px" }}
+              sx={{ position: "absolute", left: "-60px", top: "20px" }}
             >
               <input
                 accept="image/*"
@@ -236,24 +240,31 @@ export default function AddBlog() {
                 hidden
                 onChange={handleImageChange}
               />
-              <AddCircleOutlineIcon />
+              <AddCircleOutlineIcon fontSize="large" />
             </IconButton>
             <TextField
               id="blog-text"
-              label="Text"
+              placeholder="Tell your story..."
               variant="standard"
               multiline
-              rows={8}
+              // rows={8}
               value={text}
               onChange={handleTextChange}
               fullWidth
+              sx={{
+                "& .MuiInputBase-input": { fontSize: "20px" },
+
+                marginTop: "30px !important",
+              }}
+              // className="mt-4"
             />
           </Box>
         </div>
 
-        <div className="flex flex-col space-y-6">
+        <div className="flex space-y-6 justify-between items-center">
           <Autocomplete
             multiple
+            className="w-[45%] "
             id="tags-filled"
             options={tagsList.map((option) => option.name)} // Use names for the options
             freeSolo
@@ -274,13 +285,27 @@ export default function AddBlog() {
               <TextField
                 {...params}
                 variant="filled"
-                label="Tags"
+                // label="Tags"
                 placeholder="Add Tags"
               />
             )}
           />
-
-          <Button type="submit" variant="contained" color="primary">
+          <Button
+            type="submit"
+            variant="outline"
+            color="primary"
+            className="w-[45%] h-10 m-0"
+            sx={{
+              color: "white",
+              borderColor: "#d84f2a",
+              background: "#d84f2a",
+              margin: "0px !important",
+              "&:hover": {
+                backgroundColor: "#f9744b",
+                borderColor: "#f9744b",
+              },
+            }}
+          >
             Publish
           </Button>
         </div>

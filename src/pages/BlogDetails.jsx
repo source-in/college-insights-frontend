@@ -153,7 +153,7 @@ const BlogDetails = () => {
           </div>
         </div>
         <div className="flex flex-col">
-          <Typography variant="h3" gutterBottom>
+          <Typography variant="h4" gutterBottom className="blog_title">
             {blog?.title}
           </Typography>
           {blog?.blogImage && (
@@ -163,9 +163,14 @@ const BlogDetails = () => {
               alt="blogPic"
             />
           )}
-          <Typography variant="body1" gutterBottom>
+          {/* <Typography variant="body1" gutterBottom>
             {blog?.content}
-          </Typography>
+          </Typography> */}
+          <div className="mainblogContentHolder">
+            {blog?.content?.split("\n").map((item) => (
+              <p className="blogContentText">{item}</p>
+            ))}
+          </div>
         </div>
         <div className="flex flex-start flex-wrap">
           {blog?.tags &&
@@ -183,7 +188,10 @@ const BlogDetails = () => {
             aria-label="add to favorites"
             onClick={handleLikeOrUnlike}
           >
-            {!userHasLiked ? <ThumbUpIcon /> : <ThumbDownAltIcon />}
+            {/* {!userHasLiked ? <ThumbUpIcon /> : <ThumbDownAltIcon />} */}
+            <FavoriteIcon
+              sx={{ color: `${blog?.likes?.includes(user._id) ? "red" : ""}` }}
+            />
             <Typography paddingLeft={0.5}>{blog?.likes?.length}</Typography>
           </IconButton>
           <IconButton aria-label="comment" onClick={toggleComments}>
@@ -252,7 +260,7 @@ const BlogDetails = () => {
               {blog.blogImage && (
                 <CardMedia
                   component="img"
-                  sx={{ width: 100, height: 100, flexShrink: 0 }} // Fixed width and height for the image
+                  sx={{ width: 100, height: "100%", flexShrink: 0 }} // Fixed width and height for the image
                   src={`http://localhost:3001/static/${blog?.blogImage}`}
                   alt="News image"
                 />
@@ -264,10 +272,16 @@ const BlogDetails = () => {
                   component="div"
                   sx={{ maxHeight: 100, overflowY: "auto" }}
                 >
-                  {blog.title}
+                  {/* {blog.title} */}
+                  {blog.title?.length > 80
+                    ? `${blog.title.slice(0, 80)}...`
+                    : blog.title}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  {blog.content}
+                  {/* {blog.content} */}
+                  {blog.content?.length > 80
+                    ? `${blog.content.slice(0, 80)}...`
+                    : blog.content}
                 </Typography>
               </CardContent>
             </Card>

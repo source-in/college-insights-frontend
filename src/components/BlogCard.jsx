@@ -10,6 +10,10 @@ import CommentIcon from "@mui/icons-material/Comment";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import { useNavigate } from "react-router-dom";
+import "./BlogCard.css";
+import moment from "moment";
+import ModeIcon from "@mui/icons-material/Mode";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 
 const Blog = (blog) => {
   const likesCount = 10;
@@ -18,54 +22,74 @@ const Blog = (blog) => {
   const navigate = useNavigate();
 
   return (
-    <Card
-      className="w-full p-4 cursor-pointer"
+    <div
+      className="w-full p-0 cursor-pointer blog_card"
       onClick={() => navigate(`/view-blog/${blog._id}`)}
     >
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          {blog?.title}
-        </Typography>
-        {!blog?.blogImage && (
-          <Typography variant="body2" color="text.secondary">
-            {blog?.content}
-          </Typography>
-        )}
-      </CardContent>
       {blog?.blogImage && (
         <CardMedia
           component="img"
-          height="140"
+          height="100"
           image={`http://localhost:3001/static/${blog?.blogImage}`}
           alt="Blog image"
+          className="blog_image"
+          sx={{ borderRadius: "10px 10px 0px 0px" }}
         />
       )}
-      {/* <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-          <Typography paddingLeft={0.5}>{blog.likes.length}</Typography>
-        </IconButton>
-        <IconButton aria-label="comment">
-          <CommentIcon />
-          <Typography paddingLeft={0.5}>{commentsCount}</Typography>
-        </IconButton>
-      </CardActions> */}
-      {blog?.tags && blog?.tags.length > 0 && (
-        <CardContent>
-          <div className="flex flex-start flex-wrap">
-            {blog?.tags &&
-              blog.tags.map((tag, index) => (
-                <Chip
-                  key={index}
-                  label={tag.name}
-                  sx={{ borderRadius: "4px" }}
-                  style={{ marginRight: "8px", marginBottom: "8px" }}
-                />
-              ))}
+      <CardContent>
+        <Typography
+          gutterBottom
+          variant="h5"
+          component="div"
+          className="blogHeading"
+        >
+          {blog?.title}
+        </Typography>
+        <div className="AuthorandDate">
+          <div className="authorName">
+            <ModeIcon
+              sx={{
+                color: "#FFA454",
+                marginRight: "5px",
+                marginTop: "5px",
+              }}
+            />
+            <p>{blog?.authorID?.firstName}</p>
           </div>
-        </CardContent>
-      )}
-    </Card>
+          <div className="blogDate">
+            <CalendarMonthIcon
+              sx={{
+                color: "#FFA454",
+                marginRight: "5px",
+                marginTop: "5px",
+              }}
+            />
+            <p>{moment(blog?.createdAt).format("MMMM d, YYYY")}</p>
+          </div>
+        </div>
+        <br />
+        <p
+          // variant="body2"
+          // color="text.secondary"
+          className="smallBlogContent"
+        >
+          {blog?.content?.length > 150
+            ? `${blog?.content.slice(0, 150)}...`
+            : blog?.content}
+        </p>
+
+        {blog?.tags && blog?.tags?.length > 0 && (
+          <CardContent>
+            <div className="CategoryButtonContainer">
+              {blog?.tags &&
+                blog.tags.map((tag, index) => (
+                  <button className="tagButton ">{tag?.name}</button>
+                ))}
+            </div>
+          </CardContent>
+        )}
+      </CardContent>
+    </div>
   );
 };
 

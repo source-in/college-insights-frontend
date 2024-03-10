@@ -65,7 +65,7 @@ const Account = () => {
     }
   }, [dispatch]);
 
-  //   console.log(userBlogs);
+  console.log(userBlogs, user?._id);
 
   const handleDelete = (blogId) => {
     dispatch(deleteBlog(blogId)).then(() => {
@@ -97,20 +97,20 @@ const Account = () => {
       )}
       <div className="w-2/3 p-4">
         <div className="w-full h-full bg-white rounded-lg p-8 shadow-md">
-          <h1 className="text-2xl">My Blogs</h1>
+          <h1 className="text-2xl font-bold text-[#102937]">My Blogs</h1>
           <div className="flex flex-col space-y-6 mt-10">
             {userBlogs.length > 0 &&
               userBlogs.map((blog, index) => (
-                <Card
+                <div
                   key={index}
-                  sx={{
-                    display: "flex",
-                    flexDirection: "row",
-                    alignItems: "flex-start",
-                    maxHeight: 200,
-                    width: "100%",
-                  }}
-                  className="hover:shadow-lg p-2"
+                  // sx={{
+                  //   display: "flex",
+                  //   flexDirection: "row",
+                  //   alignItems: "flex-start",
+                  //   maxHeight: 200,
+                  //   width: "100%",
+                  // }}
+                  className="hover:shadow-lg p-2 w-full max-h-[200px] flex items-start blog_card"
                 >
                   {blog.blogImage && (
                     <CardMedia
@@ -123,7 +123,11 @@ const Account = () => {
                   <CardContent
                     onClick={() => navigate(`/view-blog/${blog._id}`)}
                     className="cursor-pointer"
-                    sx={{ flex: 1, overflow: "hidden" }}
+                    sx={{
+                      flex: 1,
+                      overflow: "hidden",
+                      padding: "0px 0px 0px 15px !important",
+                    }}
                   >
                     <h1 className="text-xl ">{blog.title}</h1>
                     <h1
@@ -153,14 +157,16 @@ const Account = () => {
                       <DeleteIcon />
                     </IconButton>
                   </CardActions>
-                </Card>
+                </div>
               ))}
           </div>
         </div>
       </div>
       <div className="w-1/3 p-4">
         <div className="w-full h-full bg-white rounded-lg p-8 shadow-md flex flex-col space-y-12">
-          <h1 className="text-2xl text-center">Account Information</h1>
+          <h1 className="text-2xl text-center font-bold text-[#102937]">
+            Account Information
+          </h1>
           <div className="flex flex-col space-y-8 items-center">
             <Avatar
               alt="Remy Sharp"

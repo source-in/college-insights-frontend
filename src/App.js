@@ -18,12 +18,21 @@ import BlogDetails from "./pages/BlogDetails";
 import { useDispatch } from "react-redux";
 import { getParticularUser } from "./features/user/userSlice";
 import Account from "./pages/Account";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const App = () => {
   const [isLogin, setIsLogin] = useState(false);
   const dispatch = useDispatch();
 
   const userID = localStorage.getItem("userId");
+
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: "#102937",
+      },
+    },
+  });
 
   useEffect(() => {
     if (userID) {
@@ -43,28 +52,30 @@ const App = () => {
   ];
 
   return (
-    <Router>
-      <Routes>
-        {/* Routes for Login and Register which don't require the user to be authenticated */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+    <ThemeProvider theme={theme}>
+      <Router>
+        <Routes>
+          {/* Routes for Login and Register which don't require the user to be authenticated */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
 
-        {/* Map through protected routes and apply the same layout and authentication logic */}
-        {protectedRoutes.map(({ path, element }) => (
-          <Route
-            key={path}
-            path={path}
-            element={
-              userID ? (
-                <Layout>{element}</Layout>
-              ) : (
-                <Navigate replace to="/login" />
-              )
-            }
-          />
-        ))}
-      </Routes>
-    </Router>
+          {/* Map through protected routes and apply the same layout and authentication logic */}
+          {protectedRoutes.map(({ path, element }) => (
+            <Route
+              key={path}
+              path={path}
+              element={
+                userID ? (
+                  <Layout>{element}</Layout>
+                ) : (
+                  <Navigate replace to="/login" />
+                )
+              }
+            />
+          ))}
+        </Routes>
+      </Router>
+    </ThemeProvider>
   );
 };
 

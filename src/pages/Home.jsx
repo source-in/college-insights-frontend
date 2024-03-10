@@ -45,10 +45,12 @@ const Home = () => {
   //   },
   //   { title: "Blog Post 5", text: "Exploring the outdoors." },
   // ];
-
+  const searchByTag = (tag) => {};
   useEffect(() => {
     dispatch(fetchNews());
   }, [dispatch]);
+
+  console.log(articles, "===");
 
   return (
     <div
@@ -68,7 +70,7 @@ const Home = () => {
           sx={{ mb: 2 }}
         />
         {/* Tags/Chips */}
-        <Box>
+        {/* <Box>
           <Stack direction="row" spacing={1} flexWrap="wrap">
             {tags.map((tag, index) => (
               <Chip
@@ -79,24 +81,85 @@ const Home = () => {
               />
             ))}
           </Stack>
-        </Box>
+        </Box> */}
+        <div className="CategoryButtonContainer">
+          <h3 className="TagHeading font-bold">Top Tags</h3>
+          <button
+            className="tagButton"
+            onClick={() => {
+              searchByTag("All");
+            }}
+          >
+            All
+          </button>
+          <button
+            className="tagButton"
+            onClick={() => {
+              searchByTag("Technology");
+            }}
+          >
+            Technology
+          </button>
+          <button
+            className="tagButton"
+            onClick={() => {
+              searchByTag("Environment");
+            }}
+          >
+            Environment
+          </button>
+          <button
+            className="tagButton"
+            onClick={() => {
+              searchByTag("Nature");
+            }}
+          >
+            Nature
+          </button>
+          <button
+            className="tagButton"
+            onClick={() => {
+              searchByTag("e-commerce");
+            }}
+          >
+            E-commerce WebApp
+          </button>
+          <button
+            className="tagButton"
+            onClick={() => {
+              searchByTag("Programing");
+            }}
+          >
+            Programing
+          </button>
+          <button
+            className="tagButton"
+            onClick={() => {
+              searchByTag("MongoDB");
+            }}
+          >
+            MongoDB
+          </button>
+        </div>
       </div>
-      <div className="w-3/5 py-8 px-4 overflow-auto bg-gray-100">
+      <div className="w-3/5 py-8 px-4 overflow-auto bg-gray-100 blog_container">
         <div className="flex flex-col items-center space-y-8">
           {blogs.map((blog, index) => (
             <Blog key={index} {...blog} />
           ))}
         </div>
       </div>
-      <div className="w-2/6 h-full overflow-auto flex flex-col items-center py-8 px-2 font-semibold">
+      <div className="w-2/6 h-full overflow-auto flex flex-col items-center py-8 px-2 font-semibold ">
         <div className="flex flex-col items-center px-2 space-y-8">
-          <h1 className="text-2xl tracking-wide">Recent News</h1>
+          <h1 className="text-2xl tracking-wide font-bold">Recent News</h1>
           {articles.map((article, index) => (
             <NewsCard
               key={index}
               title={article.title}
               text={article.description}
               imageUrl={article.image_url}
+              published_at={article.published_at}
+              url={article.url}
             />
           ))}
         </div>
