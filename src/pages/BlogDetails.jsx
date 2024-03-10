@@ -240,7 +240,11 @@ const BlogDetails = () => {
         )}
       </div>
       <div className="w-1/3 flex flex-col p-4 space-y-4">
-        <Typography variant="h5" gutterBottom>
+        <Typography
+          variant="h5"
+          gutterBottom
+          // sx={{ fontWeight: "700 !important", fontSize: "30px" }}
+        >
           Related Blogs
         </Typography>
         {relatedBlogs &&

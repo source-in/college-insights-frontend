@@ -47,12 +47,13 @@ export default function TopBar() {
       <AppBar position="static">
         <Toolbar className="justify-between">
           <div>
-            <p
+            {/* <p
               className="text-[#ff6c43] font-bold text-xl tracking-widest cursor-pointer"
               onClick={() => navigate("/")}
             >
               COLLAGE INSIGHTS
-            </p>
+            </p> */}
+            <img src="logo.png" height={100} width={"300px"} />
           </div>
           <div className="space-x-4">
             <Button

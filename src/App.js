@@ -32,6 +32,12 @@ const App = () => {
         main: "#102937",
       },
     },
+    typography: {
+      h5: {
+        fontSize: "30px",
+        fontWeight: "600",
+      },
+    },
   });
 
   useEffect(() => {

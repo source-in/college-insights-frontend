@@ -11,6 +11,8 @@ import {
   CardMedia,
   CardActions,
   IconButton,
+  Modal,
+  Button,
 } from "@mui/material";
 import { fetchUserBlogs, deleteBlog } from "../features/blogs/blogsSlice";
 import { useNavigate } from "react-router-dom";
@@ -47,11 +49,27 @@ function stringAvatar(name) {
   };
 }
 
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 500,
+  bgcolor: "background.paper",
+  boxShadow: 24,
+  p: 4,
+  borderRadius: "10px",
+};
+
 const Account = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.user.user);
   const userBlogs = useSelector((state) => state.blogs.userBlogs);
+  const [open, setOpen] = useState(false);
+  const [selectedBlog, setselectedBlog] = useState();
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const [alertInfo, setAlertInfo] = useState({
     show: false,
@@ -97,7 +115,12 @@ const Account = () => {
       )}
       <div className="w-2/3 p-4">
         <div className="w-full h-full bg-white rounded-lg p-8 shadow-md">
-          <h1 className="text-2xl font-bold text-[#102937]">My Blogs</h1>
+          <Typography
+            variant="h5"
+            className="text-2xl font-bold text-[#102937]"
+          >
+            My Blogs
+          </Typography>
           <div className="flex flex-col space-y-6 mt-10">
             {userBlogs.length > 0 &&
               userBlogs.map((blog, index) => (
@@ -140,19 +163,23 @@ const Account = () => {
                         textOverflow: "ellipsis",
                       }}
                     >
-                      {blog.content}
+                      {blog?.content}
                     </h1>
                   </CardContent>
                   <CardActions sx={{ justifyContent: "center" }}>
                     <IconButton
                       aria-label="edit"
-                      onClick={() => handleEdit(blog._id)}
+                      onClick={() => handleEdit(blog?._id)}
                     >
-                      <EditIcon />
+                      <EditIcon sx={{ color: "#102937" }} />
                     </IconButton>
                     <IconButton
                       aria-label="delete"
-                      onClick={() => handleDelete(blog._id)}
+                      onClick={() => {
+                        setselectedBlog(blog?._id);
+                        handleOpen();
+                      }}
+                      sx={{ color: "red" }}
                     >
                       <DeleteIcon />
                     </IconButton>
@@ -164,9 +191,12 @@ const Account = () => {
       </div>
       <div className="w-1/3 p-4">
         <div className="w-full h-full bg-white rounded-lg p-8 shadow-md flex flex-col space-y-12">
-          <h1 className="text-2xl text-center font-bold text-[#102937]">
+          <Typography
+            variant="h5"
+            className="text-2xl text-center font-bold text-[#102937]"
+          >
             Account Information
-          </h1>
+          </Typography>
           <div className="flex flex-col space-y-8 items-center">
             <Avatar
               alt="Remy Sharp"
@@ -203,6 +233,34 @@ const Account = () => {
           </div>
         </div>
       </div>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          {/* <Typography id="modal-modal-title" variant="h6" component="h2">
+            Text in a modal
+          </Typography> */}
+          <p id="modal-modal-description" className="text-xl">
+            Are you sure you want to delete this blog post? This action cannot
+            be undone and will permanently remove the post from our records.
+          </p>
+          <div className="flex justify-evenly mt-5">
+            <Button
+              onClick={() => handleDelete(selectedBlog)}
+              variant="contained"
+              className="w-1/3"
+            >
+              Delete
+            </Button>
+            <Button onClick={handleClose} variant="outline" className="w-1/3">
+              Cancle
+            </Button>
+          </div>
+        </Box>
+      </Modal>
     </div>
   );
 };

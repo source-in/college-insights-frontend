@@ -8,6 +8,7 @@ import NewsCard from "../components/NewsCard";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchNews } from "../features/news/newsSlice";
 import { fetchAllBlogs } from "../features/blogs/blogsSlice";
+import { Typography } from "@mui/material";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -83,7 +84,9 @@ const Home = () => {
           </Stack>
         </Box> */}
         <div className="CategoryButtonContainer">
-          <h3 className="TagHeading font-bold">Top Tags</h3>
+          <Typography variant="h5" sx={{ marginBottom: "10px" }}>
+            Top Tags
+          </Typography>
           <button
             className="tagButton"
             onClick={() => {
@@ -151,7 +154,9 @@ const Home = () => {
       </div>
       <div className="w-2/6 h-full overflow-auto flex flex-col items-center py-8 px-2 font-semibold ">
         <div className="flex flex-col items-center px-2 space-y-8">
-          <h1 className="text-2xl tracking-wide font-bold">Recent News</h1>
+          <Typography variant="h5" sx={{ marginBottom: "10px" }}>
+            Recent News
+          </Typography>
           {articles.map((article, index) => (
             <NewsCard
               key={index}
