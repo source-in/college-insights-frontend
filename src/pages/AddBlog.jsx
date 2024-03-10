@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -12,19 +12,74 @@ import {
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import CloseIcon from "@mui/icons-material/Close";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import { useDispatch } from "react-redux";
-import { addBlog } from "../features/blogs/blogsSlice";
-import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addBlog,
+  fetchBlogById,
+  updateBlog,
+} from "../features/blogs/blogsSlice";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 export default function AddBlog() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
   const [tags, setTags] = useState([]);
   const [image, setImage] = useState(null);
   const [imagePreview, setImagePreview] = useState("");
+  const [tagsList, setTagsList] = useState([]);
+
+  const editMode = searchParams.get("edit") === "true";
+  const blogId = searchParams.get("blogId");
+
+  const blog = useSelector((state) => state.blogs.blog);
+
+  useEffect(() => {
+    if (blogId) {
+      dispatch(fetchBlogById(blogId));
+    }
+  }, [dispatch, blogId]);
+
+  useEffect(() => {
+    if (editMode && blog) {
+      setTitle(blog.title);
+      setText(blog.content);
+      if (blog.tags && blog.tags.length > 0) {
+        setTags(blog.tags.map((tag) => tag.name));
+      } else {
+        setTags([]);
+      }
+      if (blog.blogImage) {
+        setImagePreview(`http://localhost:3001/static/${blog.blogImage}`);
+      } else {
+        setImagePreview("");
+      }
+    }
+  }, [blog]);
+
+  const fetchTags = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:3001/handleBlog/getAllTags"
+      );
+      if (!response.ok) {
+        throw new Error("Failed to fetch tags");
+      }
+      const data = await response.json();
+      const allTags = data.tags;
+      // Assuming the response data is the array of tags
+      setTagsList(allTags.map((tag) => ({ id: tag._id, name: tag.name })));
+    } catch (error) {
+      console.error("Error fetching tags:", error.message);
+    }
+  };
+
+  useEffect(() => {
+    fetchTags();
+  }, []);
 
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
@@ -62,16 +117,57 @@ export default function AddBlog() {
     }
 
     // Dispatch the addBlog async thunk action
-    dispatch(addBlog(formData))
-      .unwrap()
-      .then((response) => {
-        console.log("Blog added successfully:", response);
-        navigate(`/view-blog/${response.blog._id}`);
-      })
-      .catch((error) => {
-        console.error("Failed to add blog:", error);
-        // Handle error (e.g., showing an error message)
-      });
+    if (editMode) {
+      dispatch(updateBlog({ blogId, formData }))
+        .unwrap()
+        .then((response) => {
+          console.log("Blog updated successfully:", response);
+          navigate(`/view-blog/${blogId}`);
+        })
+        .catch((error) => {
+          console.error("Failed to add blog:", error);
+          // Handle error (e.g., showing an error message)
+        });
+    } else {
+      dispatch(addBlog(formData))
+        .unwrap()
+        .then((response) => {
+          console.log("Blog added successfully:", response);
+          navigate(`/view-blog/${response.blog._id}`);
+        })
+        .catch((error) => {
+          console.error("Failed to add blog:", error);
+          // Handle error (e.g., showing an error message)
+        });
+    }
+
+    // const formData = new FormData();
+    // formData.append("title", title);
+    // formData.append("content", text);
+    // formData.append("tags", JSON.stringify(tags)); // Stringify array of tags
+    // formData.append("authorID", localStorage.getItem("userId"));
+    // if (image) {
+    //   formData.append("blogImage", image);
+    // }
+
+    // const action = editMode ? updateBlog : addBlog; // Determine which action to dispatch based on mode
+
+    // dispatch(action({ blogId, formData }))
+    //   .unwrap()
+    //   .then((response) => {
+    //     // If edit mode, you may need to navigate to the updated blog's view
+    //     if (editMode) {
+    //       console.log("Blog updated successfully:", response);
+    //       navigate(`/view-blog/${blogId}`);
+    //     } else {
+    //       console.log("Blog added successfully:", response);
+    //       navigate(`/view-blog/${response.blog._id}`);
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     console.error("Failed to process blog:", error);
+    //     // Handle error (e.g., showing an error message)
+    //   });
   };
 
   return (
@@ -159,9 +255,9 @@ export default function AddBlog() {
           <Autocomplete
             multiple
             id="tags-filled"
-            options={tags.map((option) => option)}
+            options={tagsList.map((option) => option.name)} // Use names for the options
             freeSolo
-            value={tags}
+            value={tags} // This should be an array of tag names (strings)
             onChange={(event, newValue) => {
               setTags([...newValue]);
             }}
@@ -183,6 +279,7 @@ export default function AddBlog() {
               />
             )}
           />
+
           <Button type="submit" variant="contained" color="primary">
             Publish
           </Button>

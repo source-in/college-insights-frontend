@@ -8,6 +8,7 @@ const initialState = {
   blog: {},
   comments: [],
   relatedBlogs: [],
+  userBlogs: [],
 };
 
 export const fetchAllBlogs = createAsyncThunk(
@@ -140,7 +141,6 @@ export const unlikeBlog = createAsyncThunk(
 export const fetchRelatedBlogs = createAsyncThunk(
   "blogs/fetchRelated",
   async (blogID, { getState, rejectWithValue }) => {
-    console.log(blogID);
     try {
       const response = await axios.get(
         `http://localhost:3001/handleBlog/relatedBlogs/${blogID}`
@@ -148,6 +148,61 @@ export const fetchRelatedBlogs = createAsyncThunk(
       return response.data;
     } catch (error) {
       console.error("Error fetching related blogs:", error.response.data);
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const fetchUserBlogs = createAsyncThunk(
+  "blogs/fetchUserBlogs",
+  async (userID, { getState, rejectWithValue }) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:3001/handleBlog/getUserBlogs/${userID}`
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching related blogs:", error.response.data);
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const deleteBlog = createAsyncThunk(
+  "blogs/deleteBlog",
+  async (blogID, { getState, rejectWithValue }) => {
+    try {
+      const response = await axios.post(
+        `http://localhost:3001/handleBlog/deleteBlog`,
+        { blogID },
+        {
+          headers: {
+            Authorization: `${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      return response.data; // This response should ideally include a success message and perhaps the ID of the deleted blog
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const updateBlog = createAsyncThunk(
+  "blogs/updateBlog",
+  async ({ blogId, formData }, { rejectWithValue }) => {
+    try {
+      const response = await axios.put(
+        `http://localhost:3001/handleBlog/editBlog/${blogId}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
       return rejectWithValue(error.response.data);
     }
   }
@@ -230,6 +285,23 @@ const blogsSlice = createSlice({
       })
       .addCase(fetchRelatedBlogs.rejected, (state, action) => {
         state.isLoading = false;
+        state.error = action.payload;
+      })
+      .addCase(fetchUserBlogs.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.userBlogs = action.payload;
+      })
+      .addCase(deleteBlog.pending, (state) => {
+        // Set a loading state if needed
+      })
+      .addCase(deleteBlog.fulfilled, (state, action) => {
+        // Remove the blog from the current state
+        state.blogs = state.blogs.filter(
+          (blog) => blog._id !== action.meta.arg
+        ); // action.meta.arg should be the blogID passed to the deleteBlog thunk
+      })
+      .addCase(deleteBlog.rejected, (state, action) => {
+        // Handle the error
         state.error = action.payload;
       });
   },
