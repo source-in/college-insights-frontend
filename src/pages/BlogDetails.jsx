@@ -77,23 +77,24 @@ const BlogDetails = () => {
       dispatch(fetchBlogById(blogID));
       dispatch(fetchRelatedBlogs(blogID));
     }
-  }, [dispatch, blogID]); // Removed comments from dependency array
+  }, [dispatch, blogID]);
 
   useEffect(() => {
     if (blogID) {
       dispatch(fetchComments(blogID));
     }
-  }, [dispatch, blogID]);
+  }, [dispatch]);
 
   const handlePostComment = () => {
-    // Assuming postComment is a thunk you've created to post a new comment
     const commentData = {
       blogID: blogID,
       userID: user._id,
       comment,
     };
-    dispatch(postComment(commentData));
-    setComment(""); // Reset comment input after posting
+    dispatch(postComment(commentData)).then(() => {
+      setComment("");
+      dispatch(fetchComments(blogID));
+    });
   };
 
   const toggleComments = () => {
@@ -104,9 +105,13 @@ const BlogDetails = () => {
 
   const handleLikeOrUnlike = () => {
     if (userHasLiked) {
-      dispatch(unlikeBlog({ blogID, userID: user._id }));
+      dispatch(unlikeBlog({ blogID, userID: user._id })).then(() => {
+        dispatch(fetchBlogById(blogID));
+      });
     } else {
-      dispatch(likeBlog({ blogID, userID: user._id }));
+      dispatch(likeBlog({ blogID, userID: user._id })).then(() => {
+        dispatch(fetchBlogById(blogID));
+      });
     }
   };
 
