@@ -53,7 +53,9 @@ export default function AddBlog() {
         setTags([]);
       }
       if (blog.blogImage) {
-        setImagePreview(`http://localhost:3001/static/${blog.blogImage}`);
+        setImagePreview(
+          `${process.env.REACT_APP_API_URL}/static/${blog.blogImage}`
+        );
       } else {
         setImagePreview("");
       }
@@ -63,7 +65,7 @@ export default function AddBlog() {
   const fetchTags = async () => {
     try {
       const response = await fetch(
-        "http://localhost:3001/handleBlog/getAllTags"
+        "${process.env.REACT_APP_API_URL}/handleBlog/getAllTags"
       );
       if (!response.ok) {
         throw new Error("Failed to fetch tags");

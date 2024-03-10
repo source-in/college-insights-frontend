@@ -30,7 +30,7 @@ const Blog = (blog) => {
         <CardMedia
           component="img"
           height="100"
-          image={`http://localhost:3001/static/${blog?.blogImage}`}
+          image={`${process.env.REACT_APP_API_URL}/static/${blog?.blogImage}`}
           alt="Blog image"
           className="blog_image"
           sx={{ borderRadius: "10px 10px 0px 0px" }}
