@@ -53,9 +53,7 @@ export default function AddBlog() {
         setTags([]);
       }
       if (blog.blogImage) {
-        setImagePreview(
-          `${process.env.REACT_APP_API_URL}/static/${blog.blogImage}`
-        );
+        setImagePreview(`${blog.blogImage}`);
       } else {
         setImagePreview("");
       }

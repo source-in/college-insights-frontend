@@ -158,7 +158,7 @@ const BlogDetails = () => {
           </Typography>
           {blog?.blogImage && (
             <img
-              src={`${process.env.REACT_APP_API_URL}/static/${blog?.blogImage}`}
+              src={`${blog?.blogImage}`}
               className="mainBlogImage"
               alt="blogPic"
             />
@@ -262,7 +262,7 @@ const BlogDetails = () => {
                 <CardMedia
                   component="img"
                   sx={{ width: 100, height: "100%", flexShrink: 0 }} // Fixed width and height for the image
-                  src={`${process.env.REACT_APP_API_URL}/static/${blog?.blogImage}`}
+                  src={`${blog?.blogImage}`}
                   alt="News image"
                 />
               )}
