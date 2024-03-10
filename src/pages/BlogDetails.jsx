@@ -20,6 +20,8 @@ import {
 } from "@mui/material";
 
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
 import CommentIcon from "@mui/icons-material/Comment";
 import {
   fetchComments,
@@ -181,7 +183,7 @@ const BlogDetails = () => {
             aria-label="add to favorites"
             onClick={handleLikeOrUnlike}
           >
-            <FavoriteIcon />
+            {!userHasLiked ? <ThumbUpIcon /> : <ThumbDownAltIcon />}
             <Typography paddingLeft={0.5}>{blog?.likes?.length}</Typography>
           </IconButton>
           <IconButton aria-label="comment" onClick={toggleComments}>
