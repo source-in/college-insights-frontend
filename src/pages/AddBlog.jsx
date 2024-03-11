@@ -53,6 +53,7 @@ export default function AddBlog() {
         setTags([]);
       }
       if (blog.blogImage) {
+        setImage(blog.blogImage);
         setImagePreview(`${blog.blogImage}`);
       } else {
         setImagePreview("");
@@ -113,6 +114,7 @@ export default function AddBlog() {
     formData.append("tags", tags.join(",")); // Assuming your backend expects tags as a comma-separated string or adjust accordingly
     formData.append("authorID", userId);
     if (image) {
+      // User has provided a new image, append this new image to formData
       formData.append("blogImage", image);
     } else {
       formData.append("blogImage", null);
