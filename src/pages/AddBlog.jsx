@@ -140,34 +140,6 @@ export default function AddBlog() {
           // Handle error (e.g., showing an error message)
         });
     }
-
-    // const formData = new FormData();
-    // formData.append("title", title);
-    // formData.append("content", text);
-    // formData.append("tags", JSON.stringify(tags)); // Stringify array of tags
-    // formData.append("authorID", localStorage.getItem("userId"));
-    // if (image) {
-    //   formData.append("blogImage", image);
-    // }
-
-    // const action = editMode ? updateBlog : addBlog; // Determine which action to dispatch based on mode
-
-    // dispatch(action({ blogId, formData }))
-    //   .unwrap()
-    //   .then((response) => {
-    //     // If edit mode, you may need to navigate to the updated blog's view
-    //     if (editMode) {
-    //       console.log("Blog updated successfully:", response);
-    //       navigate(`/view-blog/${blogId}`);
-    //     } else {
-    //       console.log("Blog added successfully:", response);
-    //       navigate(`/view-blog/${response.blog._id}`);
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     console.error("Failed to process blog:", error);
-    //     // Handle error (e.g., showing an error message)
-    //   });
   };
 
   return (
@@ -179,7 +151,6 @@ export default function AddBlog() {
         component="form"
         noValidate
         autoComplete="off"
-        onSubmit={handleSubmit}
         sx={{
           "& .MuiTextField-root": { my: 1 },
           display: "flex",
@@ -265,12 +236,15 @@ export default function AddBlog() {
           <Autocomplete
             multiple
             className="w-[45%] "
+            freeSolo
             id="tags-filled"
             options={tagsList.map((option) => option.name)} // Use names for the options
             filterSelectedOptions
             value={tags}
-            onChange={(event, newValue) => {
-              setTags([...newValue]);
+            onChange={(event, newValue, reason) => {
+              if (reason === "selectOption" || reason === "createOption") {
+                setTags([...newValue]);
+              }
             }}
             renderTags={(value, getTagProps) =>
               value.map((option, index) => (
@@ -278,6 +252,11 @@ export default function AddBlog() {
                   variant="outlined"
                   label={option}
                   {...getTagProps({ index })}
+                  onDelete={() => {
+                    const newTags = [...tags];
+                    newTags.splice(index, 1); // Remove the tag at the current index
+                    setTags(newTags); // Update state with the new list of tags
+                  }}
                 />
               ))
             }
@@ -292,7 +271,7 @@ export default function AddBlog() {
             )}
           />
           <Button
-            type="submit"
+            onClick={handleSubmit}
             variant="outline"
             color="primary"
             className="w-[45%] h-14 m-0"
