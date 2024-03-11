@@ -19,6 +19,8 @@ import { useDispatch } from "react-redux";
 import { getParticularUser } from "./features/user/userSlice";
 import Account from "./pages/Account";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import ProtectedRoute from "./components/ProtectedRoutes";
+import ProtectedRoutesUser from "./components/ProtectedRoutesUser";
 
 const App = () => {
   const [isLogin, setIsLogin] = useState(false);
@@ -62,8 +64,23 @@ const App = () => {
       <Router>
         <Routes>
           {/* Routes for Login and Register which don't require the user to be authenticated */}
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          <Route
+            path="/login"
+            element={
+              <ProtectedRoutesUser>
+                <Login />
+              </ProtectedRoutesUser>
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              <ProtectedRoutesUser>
+                <Register />
+              </ProtectedRoutesUser>
+            }
+          />
+          <Route path="*" element={<ProtectedRoutesUser />} />
 
           {/* Map through protected routes and apply the same layout and authentication logic */}
           {protectedRoutes.map(({ path, element }) => (
@@ -71,11 +88,9 @@ const App = () => {
               key={path}
               path={path}
               element={
-                userID ? (
+                <ProtectedRoute>
                   <Layout>{element}</Layout>
-                ) : (
-                  <Navigate replace to="/login" />
-                )
+                </ProtectedRoute>
               }
             />
           ))}

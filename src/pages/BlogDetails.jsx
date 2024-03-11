@@ -201,6 +201,23 @@ const BlogDetails = () => {
         {showComments && (
           <Box sx={{}}>
             <Typography variant="h6">Comments</Typography>
+            <Box
+              component="form"
+              sx={{ display: "flex", alignItems: "center", pt: 2 }}
+            >
+              <TextField
+                fullWidth
+                variant="outlined"
+                placeholder="Write a comment..."
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+                multiline
+              />
+              <Button onClick={handlePostComment} sx={{ ml: 2 }}>
+                Post
+              </Button>
+            </Box>
+
             <List>
               {comments.length > 0 &&
                 comments.map((comment, index) => (
@@ -219,22 +236,6 @@ const BlogDetails = () => {
                   </ListItem>
                 ))}
             </List>
-            <Box
-              component="form"
-              sx={{ display: "flex", alignItems: "center", pt: 2 }}
-            >
-              <TextField
-                fullWidth
-                variant="outlined"
-                placeholder="Write a comment..."
-                value={comment}
-                onChange={(e) => setComment(e.target.value)}
-                multiline
-              />
-              <Button onClick={handlePostComment} sx={{ ml: 2 }}>
-                Post
-              </Button>
-            </Box>
           </Box>
         )}
       </div>

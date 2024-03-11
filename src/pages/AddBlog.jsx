@@ -144,6 +144,14 @@ export default function AddBlog() {
     }
   };
 
+  const handleReset = () => {
+    setTitle("");
+    setText("");
+    setTags([]);
+    setImage(null);
+    setImagePreview("");
+  };
+
   return (
     <div
       className="flex justify-center py-8"
@@ -234,62 +242,83 @@ export default function AddBlog() {
           </Box>
         </div>
 
-        <div className="flex space-y-6 justify-between items-center">
-          <Autocomplete
-            multiple
-            className="w-[45%] "
-            freeSolo
-            id="tags-filled"
-            options={tagsList.map((option) => option.name)} // Use names for the options
-            filterSelectedOptions
-            value={tags}
-            onChange={(event, newValue, reason) => {
-              if (reason === "selectOption" || reason === "createOption") {
-                setTags([...newValue]);
+        <div className="flex flex-col space-y-6 justify-between">
+          <div>
+            <Autocomplete
+              multiple
+              freeSolo
+              id="tags-filled"
+              options={tagsList.map((option) => option.name)} // Use names for the options
+              filterSelectedOptions
+              value={tags}
+              onChange={(event, newValue, reason) => {
+                if (reason === "selectOption" || reason === "createOption") {
+                  setTags([...newValue]);
+                }
+              }}
+              renderTags={(value, getTagProps) =>
+                value.map((option, index) => (
+                  <Chip
+                    variant="outlined"
+                    label={option}
+                    {...getTagProps({ index })}
+                    onDelete={() => {
+                      const newTags = [...tags];
+                      newTags.splice(index, 1); // Remove the tag at the current index
+                      setTags(newTags); // Update state with the new list of tags
+                    }}
+                  />
+                ))
               }
-            }}
-            renderTags={(value, getTagProps) =>
-              value.map((option, index) => (
-                <Chip
+              renderInput={(params) => (
+                <TextField
+                  {...params}
                   variant="outlined"
-                  label={option}
-                  {...getTagProps({ index })}
-                  onDelete={() => {
-                    const newTags = [...tags];
-                    newTags.splice(index, 1); // Remove the tag at the current index
-                    setTags(newTags); // Update state with the new list of tags
-                  }}
+                  // label="Tags"
+                  placeholder="Add Tags"
+                  // sx={{ bgcolor: "white" }}
                 />
-              ))
-            }
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                variant="outlined"
-                // label="Tags"
-                placeholder="Add Tags"
-                // sx={{ bgcolor: "white" }}
-              />
-            )}
-          />
-          <Button
-            onClick={handleSubmit}
-            variant="outline"
-            color="primary"
-            className="w-[45%] h-14 m-0"
-            sx={{
-              color: "black",
-              borderColor: "#b8af93",
-              background: "#b8af93",
-              margin: "0px !important",
-              "&:hover": {
-                backgroundColor: "#CCC5AD",
-                borderColor: "#CCC5AD",
-              },
-            }}
-          >
-            Publish
-          </Button>
+              )}
+            />
+          </div>
+          <div className="flex justify-between">
+            <Button
+              onClick={handleReset}
+              variant="outline"
+              color="primary"
+              className="w-[48%] h-14 m-0"
+              sx={{
+                color: "black",
+                borderColor: "#f9744b",
+                background: "#f9744b",
+                margin: "0px !important",
+                "&:hover": {
+                  backgroundColor: "#FB9474",
+                  borderColor: "#FB9474",
+                },
+              }}
+            >
+              Reset
+            </Button>
+            <Button
+              onClick={handleSubmit}
+              variant="outline"
+              color="primary"
+              className="w-[48%] h-14 m-0"
+              sx={{
+                color: "black",
+                borderColor: "#b8af93",
+                background: "#b8af93",
+                margin: "0px !important",
+                "&:hover": {
+                  backgroundColor: "#CCC5AD",
+                  borderColor: "#CCC5AD",
+                },
+              }}
+            >
+              Publish
+            </Button>
+          </div>
         </div>
       </Box>
     </div>
