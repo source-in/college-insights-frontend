@@ -94,6 +94,7 @@ const Account = () => {
         severity: "success",
         key: new Date().getTime(),
       });
+      handleClose();
     });
   };
 
@@ -114,21 +115,21 @@ const Account = () => {
         />
       )}
       <div className="w-2/3 p-4">
-        <div
-          className="w-full bg-white rounded-lg p-8 shadow-md"
-          style={{
-            maxHeight: "calc(100vh - 88px)",
-            height: "calc(100vh - 176px)",
-            overflowY: "auto",
-          }}
-        >
+        <div className="w-full bg-white rounded-lg p-8 shadow-md ">
           <Typography
             variant="h5"
             className="text-2xl font-bold text-[#102937]"
           >
             My Blogs
           </Typography>
-          <div className="flex flex-col space-y-6 mt-10">
+          <div
+            className="flex flex-col space-y-6 mt-10 my_blog_container"
+            style={{
+              // maxHeight: "calc(100vh - 100px)",
+              height: "calc(100vh - 320px)",
+              overflowY: "auto",
+            }}
+          >
             {userBlogs.length > 0 &&
               userBlogs.map((blog, index) => (
                 <div
