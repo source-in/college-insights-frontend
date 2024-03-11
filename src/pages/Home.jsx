@@ -11,6 +11,7 @@ import { fetchNews } from "../features/news/newsSlice";
 import { fetchAllBlogs } from "../features/blogs/blogsSlice";
 import { Typography } from "@mui/material";
 import { getParticularUser } from "../features/user/userSlice";
+import MostLikedBlog from "../components/MostLikedBlog/MostLikedBlog";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -67,7 +68,7 @@ const Home = () => {
       className="flex w-full"
       style={{ height: "calc(100vh - 88px)", overflow: "hidden" }}
     >
-      <div className="w-1/6 overflow-auto py-8 px-4 bg-gray-100">
+      <div className="w-1/6 overflow-auto py-8 px-4 bg-gray-100 blog_container">
         <Box sx={{ mb: 2 }}>
           <Typography variant="h5" sx={{ marginBottom: "10px" }}>
             Filter Tags
@@ -184,66 +185,7 @@ const Home = () => {
               />
             )}
           /> */}
-        {/* <Typography variant="h5" sx={{ marginBottom: "10px" }}>
-            Top Tags
-          </Typography>
-          <button
-            className="tagButton"
-            onClick={() => {
-              searchByTag("All");
-            }}
-          >
-            All
-          </button>
-          <button
-            className="tagButton"
-            onClick={() => {
-              searchByTag("Technology");
-            }}
-          >
-            Technology
-          </button>
-          <button
-            className="tagButton"
-            onClick={() => {
-              searchByTag("Environment");
-            }}
-          >
-            Environment
-          </button>
-          <button
-            className="tagButton"
-            onClick={() => {
-              searchByTag("Nature");
-            }}
-          >
-            Nature
-          </button>
-          <button
-            className="tagButton"
-            onClick={() => {
-              searchByTag("e-commerce");
-            }}
-          >
-            E-commerce WebApp
-          </button>
-          <button
-            className="tagButton"
-            onClick={() => {
-              searchByTag("Programing");
-            }}
-          >
-            Programing
-          </button>
-          <button
-            className="tagButton"
-            onClick={() => {
-              searchByTag("MongoDB");
-            }}
-          >
-            MongoDB
-          </button> */}
-        {/* </div> */}
+        <MostLikedBlog />
       </div>
       <div className="w-3/5 py-8 px-4 overflow-auto bg-gray-100 blog_container">
         {filteredBlogs.length > 0 ? (
@@ -261,7 +203,7 @@ const Home = () => {
           </Typography>
         )}
       </div>
-      <div className="w-2/6 h-full overflow-auto flex flex-col items-center py-8 px-2 font-semibold ">
+      <div className="w-[26%] h-full overflow-auto flex flex-col items-center py-8 px-2 font-semibold blog_container">
         <div className="flex flex-col items-center px-2 space-y-8">
           <Typography variant="h5" sx={{ marginBottom: "10px" }}>
             Recent News

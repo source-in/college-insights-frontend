@@ -9,6 +9,7 @@ const initialState = {
   comments: [],
   relatedBlogs: [],
   userBlogs: [],
+  mostLiked: [],
 };
 
 export const fetchAllBlogs = createAsyncThunk(
@@ -19,10 +20,15 @@ export const fetchAllBlogs = createAsyncThunk(
         `${process.env.REACT_APP_API_URL}/handleBlog/getAllBlog`
       );
       let blogs = response.data.response;
+      var mostLiked = response?.data?.response?.sort((a, b) => {
+        return b?.likes.length - a?.likes.length;
+      });
+      // console.log(mostLiked, "===");
+      mostLiked = mostLiked.slice(0, 3);
 
       // blogs.sort((a, b) => b.likes.length - a.likes.length);
 
-      return blogs;
+      return { blogs, mostLiked };
     } catch (error) {
       console.error("Error fetching all blogs:", error.response.data);
       return rejectWithValue(error.response.data);
@@ -224,8 +230,11 @@ const blogsSlice = createSlice({
       })
       .addCase(fetchAllBlogs.fulfilled, (state, action) => {
         state.status = "succeeded";
+        console.log(action.payload.blogs);
+        console.log(action.payload.mostLiked);
         // Assuming the fetched blogs should replace the existing state.blogs
-        state.blogs = action.payload;
+        state.blogs = action.payload.blogs;
+        state.mostLiked = action.payload.mostLiked;
       })
       .addCase(fetchAllBlogs.rejected, (state, action) => {
         state.status = "failed";
