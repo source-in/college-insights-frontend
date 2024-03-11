@@ -17,11 +17,10 @@ export const fetchNews = createAsyncThunk("news/fetchNews", async () => {
   //   },
   // });
   // return response.data.data;
-  const response = await axios.get(
-    "https://newsdata.io/api/1/news?apikey=pub_39653707db78f1a48b0668ca749fd0b22de91&language=en&country=us&size=5"
-  );
-  // console.log(response.data);
-  return response.data.results;
+  // const response = await axios.get(
+  //   "https://newsdata.io/api/1/news?apikey=pub_39653707db78f1a48b0668ca749fd0b22de91&language=en&country=us&size=5"
+  // );
+  // return response.data.results;
 });
 
 const newsSlice = createSlice({
