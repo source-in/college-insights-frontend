@@ -39,7 +39,7 @@ const Home = () => {
   const userID = localStorage.getItem("userId");
 
   useEffect(() => {
-    // dispatch(fetchNews());
+    dispatch(fetchNews());
     dispatch(getParticularUser({ userID }));
     dispatch(fetchAllBlogs());
     fetchTags();

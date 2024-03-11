@@ -83,7 +83,7 @@ const Account = () => {
     }
   }, [dispatch]);
 
-  console.log(userBlogs, user?._id);
+  // console.log(userBlogs, user?._id);
 
   const handleDelete = (blogId) => {
     dispatch(deleteBlog(blogId)).then(() => {
@@ -115,8 +115,12 @@ const Account = () => {
       )}
       <div className="w-2/3 p-4">
         <div
-          className="w-full h-full bg-white rounded-lg p-8 shadow-md"
-          style={{ maxHeight: "calc(100vh - 88px)", overflowY: "auto" }}
+          className="w-full bg-white rounded-lg p-8 shadow-md"
+          style={{
+            maxHeight: "calc(100vh - 88px)",
+            height: "calc(100vh - 176px)",
+            overflowY: "auto",
+          }}
         >
           <Typography
             variant="h5"

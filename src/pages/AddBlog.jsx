@@ -173,7 +173,7 @@ export default function AddBlog() {
   return (
     <div
       className="flex justify-center py-8"
-      style={{ minHeight: "calc(100vh - 64px)" }}
+      style={{ minHeight: "calc(100vh - 88px)" }}
     >
       <Box
         component="form"
