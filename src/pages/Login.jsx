@@ -91,7 +91,7 @@ const Login = () => {
           });
           setTimeout(() => {
             navigate("/");
-          }, 1000);
+          }, 100);
         }
       });
     }

@@ -33,7 +33,11 @@ const Blog = (blog) => {
           image={`${blog?.blogImage}`}
           alt="Blog image"
           className="blog_image"
-          sx={{ borderRadius: "10px 10px 0px 0px" }}
+          sx={{
+            borderRadius: "10px 10px 0px 0px",
+            height: "300px !important",
+            objectFit: "cover",
+          }}
         />
       )}
       <CardContent>

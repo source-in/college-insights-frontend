@@ -212,7 +212,7 @@ export default function AddBlog() {
                 className="shrink-0"
                 src={imagePreview}
                 alt="Preview"
-                style={{ width: "100%", height: "350px" }}
+                style={{ width: "100%", height: "350px", objectFit: "cover" }}
               />
               <IconButton
                 onClick={handleRemoveImage}

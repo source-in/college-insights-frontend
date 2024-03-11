@@ -161,3 +161,8 @@
   border: none;
   outline: none;
 }
+.mainBlogImage {
+  height: 400px;
+  width: 99%;
+  object-fit: cover;
+}
