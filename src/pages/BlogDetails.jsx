@@ -78,14 +78,16 @@ const BlogDetails = () => {
     if (blogID) {
       dispatch(fetchBlogById(blogID));
       dispatch(fetchRelatedBlogs(blogID));
+      dispatch(fetchComments(blogID));
+      setShowComments(false);
     }
   }, [dispatch, blogID]);
 
-  useEffect(() => {
-    if (blogID) {
-      dispatch(fetchComments(blogID));
-    }
-  }, [dispatch]);
+  // useEffect(() => {
+  //   if (blogID) {
+  //     dispatch(fetchComments(blogID));
+  //   }
+  // }, [dispatch]);
 
   const handlePostComment = () => {
     const commentData = {
