@@ -63,7 +63,7 @@ export default function AddBlog() {
   const fetchTags = async () => {
     try {
       const response = await fetch(
-        "${process.env.REACT_APP_API_URL}/handleBlog/getAllTags"
+        `${process.env.REACT_APP_API_URL}/handleBlog/getAllTags`
       );
       if (!response.ok) {
         throw new Error("Failed to fetch tags");
@@ -267,8 +267,8 @@ export default function AddBlog() {
             className="w-[45%] "
             id="tags-filled"
             options={tagsList.map((option) => option.name)} // Use names for the options
-            freeSolo
-            value={tags} // This should be an array of tag names (strings)
+            filterSelectedOptions
+            value={tags}
             onChange={(event, newValue) => {
               setTags([...newValue]);
             }}
@@ -284,9 +284,10 @@ export default function AddBlog() {
             renderInput={(params) => (
               <TextField
                 {...params}
-                variant="filled"
+                variant="outlined"
                 // label="Tags"
                 placeholder="Add Tags"
+                // sx={{ bgcolor: "white" }}
               />
             )}
           />
@@ -294,7 +295,7 @@ export default function AddBlog() {
             type="submit"
             variant="outline"
             color="primary"
-            className="w-[45%] h-10 m-0"
+            className="w-[45%] h-14 m-0"
             sx={{
               color: "white",
               borderColor: "#d84f2a",

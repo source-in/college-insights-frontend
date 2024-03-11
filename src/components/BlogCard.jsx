@@ -54,7 +54,9 @@ const Blog = (blog) => {
                 marginTop: "5px",
               }}
             />
-            <p>{blog?.authorID?.firstName}</p>
+            <p>
+              {blog?.authorID?.firstName} {blog?.authorID?.lastName}
+            </p>
           </div>
           <div className="blogDate">
             <CalendarMonthIcon
