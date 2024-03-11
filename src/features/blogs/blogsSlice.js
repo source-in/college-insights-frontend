@@ -19,14 +19,12 @@ export const fetchAllBlogs = createAsyncThunk(
       const response = await axios.get(
         `${process.env.REACT_APP_API_URL}/handleBlog/getAllBlog`
       );
-      let blogs = response.data.response;
-      var mostLiked = response?.data?.response?.sort((a, b) => {
-        return b?.likes.length - a?.likes.length;
-      });
-      // console.log(mostLiked, "===");
-      mostLiked = mostLiked.slice(0, 3);
+      const blogs = response.data.response;
 
-      // blogs.sort((a, b) => b.likes.length - a.likes.length);
+      // Create a copy of the response and sort it to find the most liked blogs
+      var mostLiked = [...blogs]
+        .sort((a, b) => b.likes.length - a.likes.length)
+        .slice(0, 3);
 
       return { blogs, mostLiked };
     } catch (error) {

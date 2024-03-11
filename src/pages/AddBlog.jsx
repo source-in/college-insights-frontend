@@ -114,6 +114,8 @@ export default function AddBlog() {
     formData.append("authorID", userId);
     if (image) {
       formData.append("blogImage", image);
+    } else {
+      formData.append("blogImage", null);
     }
 
     // Dispatch the addBlog async thunk action
