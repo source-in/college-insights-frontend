@@ -98,7 +98,7 @@ const Login = () => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row h-screen w-screen">
+    <div className="flex flex-col md:flex-row h-screen w-screen bg-[#F1F6E4]">
       {alertInfo.show && (
         <TimedAlert
           message={alertInfo.message}
@@ -107,10 +107,19 @@ const Login = () => {
         />
       )}
       <div className="flex-1 flex justify-center items-center md:w-2/5 w-full">
-        <form className="w-4/5 md:w-3/5 h-3/5" onSubmit={handleSubmit}>
-          <div>image</div>
+        <form
+          className="w-4/5 md:w-3/5 h-3/5 text-center"
+          onSubmit={handleSubmit}
+        >
+          <div className="text-center">
+            <img
+              src="/images/login_logo.png"
+              width={"200px"}
+              className="m-auto mb-5"
+            />
+          </div>
           <div className="flex flex-col space-y-2 font-semibold">
-            <h1 className="text-4xl tracking-wide">Welcome back!</h1>
+            <h1 className="text-4xl tracking-wide font-bold">Welcome back!</h1>
             <p className="tracking-wide font-normal">
               Enter your details below
             </p>
@@ -126,7 +135,7 @@ const Login = () => {
               error={!!errors.email}
               helperText={errors.email}
               sx={{
-                backgroundColor: "white",
+                backgroundColor: "transparent",
                 borderRadius: "8px",
                 height: textFieldHeight,
               }}
@@ -158,7 +167,7 @@ const Login = () => {
                 shrink: true,
               }}
               sx={{
-                backgroundColor: "white",
+                backgroundColor: "transparent",
                 borderRadius: "5px",
                 height: textFieldHeight,
               }}

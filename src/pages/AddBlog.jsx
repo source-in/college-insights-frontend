@@ -297,13 +297,13 @@ export default function AddBlog() {
             color="primary"
             className="w-[45%] h-14 m-0"
             sx={{
-              color: "white",
-              borderColor: "#d84f2a",
-              background: "#d84f2a",
+              color: "black",
+              borderColor: "#b8af93",
+              background: "#b8af93",
               margin: "0px !important",
               "&:hover": {
-                backgroundColor: "#f9744b",
-                borderColor: "#f9744b",
+                backgroundColor: "#CCC5AD",
+                borderColor: "#CCC5AD",
               },
             }}
           >
