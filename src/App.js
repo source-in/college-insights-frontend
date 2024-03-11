@@ -46,7 +46,7 @@ const App = () => {
     } else {
       setIsLogin(false);
     }
-  }, [userID]);
+  }, []);
 
   // Array of routes that require the user to be authenticated
   const protectedRoutes = [
