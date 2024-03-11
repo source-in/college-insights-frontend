@@ -53,19 +53,25 @@ export default function TopBar() {
             >
               COLLAGE INSIGHTS
             </p> */}
-            <img src="logo.png" height={100} width={"300px"} />
+            <img
+              src="/images/home_logo.png"
+              height={100}
+              width={"300px"}
+              onClick={() => navigate("/")}
+              className="cursor-pointer m-2"
+            />
           </div>
           <div className="space-x-4">
             <Button
               variant="outlined"
               onClick={() => navigate("/add-blog")}
               sx={{
-                color: "white",
-                borderColor: "#d84f2a",
-                background: "#d84f2a",
+                color: "black",
+                borderColor: "#b8af93",
+                background: "#b8af93",
                 "&:hover": {
-                  backgroundColor: "#f9744b", // Use the same background color on hover
-                  borderColor: "#f9744b", // Optional: Adjust the border color on hover if desired
+                  backgroundColor: "#CCC5AD", // Use the same background color on hover
+                  borderColor: "#CCC5AD", // Optional: Adjust the border color on hover if desired
                 },
               }}
               endIcon={<AddIcon />}

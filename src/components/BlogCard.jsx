@@ -49,7 +49,7 @@ const Blog = (blog) => {
           <div className="authorName">
             <ModeIcon
               sx={{
-                color: "#FFA454",
+                color: "#163A50",
                 marginRight: "5px",
                 marginTop: "5px",
               }}
@@ -59,7 +59,7 @@ const Blog = (blog) => {
           <div className="blogDate">
             <CalendarMonthIcon
               sx={{
-                color: "#FFA454",
+                color: "#163A50",
                 marginRight: "5px",
                 marginTop: "5px",
               }}

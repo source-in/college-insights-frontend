@@ -9,14 +9,14 @@ const initialState = {
 
 // Async thunk for fetching news
 export const fetchNews = createAsyncThunk("news/fetchNews", async () => {
-  const response = await axios.get("https://api.thenewsapi.com/v1/news/top", {
-    params: {
-      api_token: "vi8I930iymYGYcnWVZ9dx0lGHJiXPaENuDqzamw3",
-      locale: "us",
-      limit: 10,
-    },
-  });
-  return response.data.data;
+  // const response = await axios.get("https://api.thenewsapi.com/v1/news/top", {
+  //   params: {
+  //     api_token: "vi8I930iymYGYcnWVZ9dx0lGHJiXPaENuDqzamw3",
+  //     locale: "us",
+  //     limit: 10,
+  //   },
+  // });
+  // return response.data.data;
 });
 
 const newsSlice = createSlice({

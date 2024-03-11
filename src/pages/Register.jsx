@@ -125,7 +125,7 @@ const Register = () => {
   };
 
   return (
-    <div className="flex h-screen w-screen">
+    <div className="flex h-screen w-screen bg-[#F1F6E4]">
       {alertInfo.show && (
         <TimedAlert
           message={alertInfo.message}
@@ -133,15 +133,28 @@ const Register = () => {
           key={alertInfo.key}
         />
       )}
-      <div className="w-1/3">1</div>
-      <div className="w-2/3 flex place-items-center justify-center">
+      <div className="w-[40%]">
+        <img
+          src="images/signup_image.webp"
+          width={"100%"}
+          className="h-full object-cover "
+        />
+      </div>
+      <div className="w-[60%] flex place-items-center justify-center">
         <div className="w-3/5 h-4/5">
+          {/* <div className="text-center"> */}
+          {/* <img
+              src="/images/login_logo.png"
+              width={"200px"}
+              className="m-auto "
+            /> */}
           <div className="flex flex-col space-y-2 font-semibold">
-            <h1 className="text-4xl tracking-wide">Sign Up</h1>
+            <h1 className="text-4xl tracking-wide font-bold">Sign Up</h1>
             <p className="tracking-wide font-normal">
               Enter your details below
             </p>
           </div>
+          {/* </div> */}
           <div className="flex flex-col space-y-8 mt-8">
             <div className="flex space-x-4">
               <TextField
@@ -155,7 +168,7 @@ const Register = () => {
                 error={!!errors.firstName}
                 helperText={errors.firstName}
                 sx={{
-                  backgroundColor: "white",
+                  backgroundColor: "transparent",
                   borderRadius: "8px",
                   height: textFieldHeight,
                 }}
@@ -183,7 +196,7 @@ const Register = () => {
                 error={!!errors.lastName}
                 helperText={errors.lastName}
                 sx={{
-                  backgroundColor: "white",
+                  backgroundColor: "transparent",
                   borderRadius: "8px",
                   height: textFieldHeight,
                 }}
@@ -211,7 +224,7 @@ const Register = () => {
               error={!!errors.email}
               helperText={errors.email}
               sx={{
-                backgroundColor: "white",
+                backgroundColor: "transparent",
                 borderRadius: "8px",
                 height: textFieldHeight,
               }}
@@ -235,7 +248,7 @@ const Register = () => {
               type="date"
               //   defaultValue="2000-01-01"
               sx={{
-                backgroundColor: "white",
+                backgroundColor: "transparent",
                 borderRadius: "8px",
                 height: textFieldHeight,
               }}
@@ -266,7 +279,7 @@ const Register = () => {
                 shrink: true,
               }}
               sx={{
-                backgroundColor: "white",
+                backgroundColor: "transparent",
                 borderRadius: "5px",
                 height: textFieldHeight,
               }}
@@ -295,7 +308,7 @@ const Register = () => {
                 shrink: true,
               }}
               sx={{
-                backgroundColor: "white",
+                backgroundColor: "transparent",
                 borderRadius: "5px",
                 height: textFieldHeight,
               }}

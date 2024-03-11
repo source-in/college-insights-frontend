@@ -21,10 +21,11 @@
 }
 
 .authorName p {
-  background-color: #ffece2;
+  background-color: #cfe4f2;
   padding: 5px;
   padding-left: 15px;
   padding-right: 15px;
+  border-radius: 5px;
 }
 
 .blogDate {
@@ -32,10 +33,11 @@
 }
 
 .blogDate p {
-  background-color: #ffece2;
+  background-color: #cfe4f2;
   padding: 5px;
   padding-left: 15px;
   padding-right: 15px;
+  border-radius: 5px;
 }
 .smallBlogContent {
   font-size: 16px;
@@ -83,7 +85,7 @@
 }
 
 .tagButton {
-  background-color: #c0dced;
+  background-color: #f1ecd9;
   /* color: #fff; */
   border: none;
   padding: 5px 10px;
@@ -94,7 +96,7 @@
 }
 
 .tagButton:hover {
-  background-color: #a0cae4;
+  background-color: #eae4cb;
 }
 
 .mainblogContentHolder {
