@@ -62,36 +62,10 @@ const Home = () => {
   // Call the above function to get the filtered blogs
   const filteredBlogs = getFilteredBlogs();
 
-  // const blogs = [
-  //   {
-  //     title: "Blog Post 1",
-  //     text: "This is a great blog post.",
-  //     imageUrl: "https://via.placeholder.com/150",
-  //     tags: ["Tech", "React", "Material-UI"],
-  //   },
-  //   { title: "Blog Post 2", text: "Here's some insightful content." },
-  //   {
-  //     title: "Blog Post 3",
-  //     text: "More fascinating insights here.",
-  //     imageUrl: "https://via.placeholder.com/150",
-  //     tags: ["Tech", "React", "Material-UI"],
-  //   },
-  //   {
-  //     title: "Blog Post 4",
-  //     text: "Why we love tech.",
-  //     imageUrl: "https://via.placeholder.com/150",
-  //   },
-  //   { title: "Blog Post 5", text: "Exploring the outdoors." },
-  // ];
-  const searchByTag = (tag) => {};
-
-  // console.log(articles, "===");
-  console.log(selectedTags);
-
   return (
     <div
       className="flex w-full"
-      style={{ height: "calc(100vh - 64px)", overflow: "hidden" }}
+      style={{ height: "calc(100vh - 88px)", overflow: "hidden" }}
     >
       <div className="w-1/6 overflow-auto py-8 px-4 bg-gray-100">
         <Box sx={{ mb: 2 }}>
@@ -125,7 +99,7 @@ const Home = () => {
                 label={tag}
                 onDelete={handleDelete(tag)}
                 sx={{
-                  bgcolor: "#c0dced",
+                  bgcolor: "#f1ecd9",
                   padding: "",
                   borderRadius: "10px",
                 }}

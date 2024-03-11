@@ -104,7 +104,7 @@ const Account = () => {
   return (
     <div
       className="w-full p-8 flex"
-      style={{ minHeight: "calc(100vh - 64px)" }}
+      style={{ maxHeight: "calc(100vh - 88px)" }}
     >
       {alertInfo.show && (
         <TimedAlert
@@ -114,7 +114,10 @@ const Account = () => {
         />
       )}
       <div className="w-2/3 p-4">
-        <div className="w-full h-full bg-white rounded-lg p-8 shadow-md">
+        <div
+          className="w-full h-full bg-white rounded-lg p-8 shadow-md"
+          style={{ maxHeight: "calc(100vh - 88px)", overflowY: "auto" }}
+        >
           <Typography
             variant="h5"
             className="text-2xl font-bold text-[#102937]"
