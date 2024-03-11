@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import moment from "moment";
 
-const NewsCard = ({ title, text, imageUrl, published_at, url }) => {
+const NewsCard = ({ title, imageUrl, published_at, url }) => {
   const handleCardClick = () => {
     window.open(url, "_blank", "noopener,noreferrer");
   };
@@ -31,7 +31,9 @@ const NewsCard = ({ title, text, imageUrl, published_at, url }) => {
           alt="News image"
         />
       )}
-      <CardContent sx={{ flex: 1, padding: "10px" }}>
+      <CardContent
+        sx={{ flex: 1, padding: "10px", justifyContent: "space-between" }}
+      >
         <Typography
           gutterBottom
           variant="body1"
@@ -42,7 +44,8 @@ const NewsCard = ({ title, text, imageUrl, published_at, url }) => {
           {/* {title} */}
         </Typography>
         <Typography className="text-right">
-          {moment(published_at).startOf("ss").fromNow()}
+          {/* {moment(published_at).startOf("ss").fromNow()} */}
+          {moment(published_at).format("MMMM D, YYYY")}
         </Typography>
       </CardContent>
     </Card>

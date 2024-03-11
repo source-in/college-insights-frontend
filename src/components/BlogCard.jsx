@@ -30,7 +30,7 @@ const Blog = (blog) => {
         <CardMedia
           component="img"
           height="100"
-          image={`http://localhost:3001/static/${blog?.blogImage}`}
+          image={`${blog?.blogImage}`}
           alt="Blog image"
           className="blog_image"
           sx={{ borderRadius: "10px 10px 0px 0px" }}
@@ -54,7 +54,9 @@ const Blog = (blog) => {
                 marginTop: "5px",
               }}
             />
-            <p>{blog?.authorID?.firstName}</p>
+            <p>
+              {blog?.authorID?.firstName} {blog?.authorID?.lastName}
+            </p>
           </div>
           <div className="blogDate">
             <CalendarMonthIcon
@@ -64,7 +66,7 @@ const Blog = (blog) => {
                 marginTop: "5px",
               }}
             />
-            <p>{moment(blog?.createdAt).format("MMMM d, YYYY")}</p>
+            <p>{moment(blog?.createdAt).format("MMMM D, YYYY")}</p>
           </div>
         </div>
         <br />
@@ -74,7 +76,7 @@ const Blog = (blog) => {
           className="smallBlogContent"
         >
           {blog?.content?.length > 150
-            ? `${blog?.content.slice(0, 150)}...`
+            ? `${blog?.content.slice(0, 300)}...`
             : blog?.content}
         </p>
 

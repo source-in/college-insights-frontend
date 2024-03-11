@@ -139,7 +139,7 @@ const Account = () => {
                     <CardMedia
                       component="img"
                       sx={{ width: 150, height: 150, flexShrink: 0 }} // Fixed width and height for the image
-                      src={`http://localhost:3001/static/${blog?.blogImage}`}
+                      src={`${blog?.blogImage}`}
                       alt="News image"
                     />
                   )}

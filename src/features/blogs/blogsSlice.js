@@ -16,11 +16,11 @@ export const fetchAllBlogs = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await axios.get(
-        `http://localhost:3001/handleBlog/getAllBlog`
+        `${process.env.REACT_APP_API_URL}/handleBlog/getAllBlog`
       );
       let blogs = response.data.response;
 
-      blogs.sort((a, b) => b.likes.length - a.likes.length);
+      // blogs.sort((a, b) => b.likes.length - a.likes.length);
 
       return blogs;
     } catch (error) {
@@ -36,7 +36,7 @@ export const addBlog = createAsyncThunk(
   async (formData, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "http://localhost:3001/handleBlog/addBlog",
+        `${process.env.REACT_APP_API_URL}/handleBlog/addBlog`,
         formData,
         {
           headers: {
@@ -56,7 +56,7 @@ export const fetchBlogById = createAsyncThunk(
   async (blogID, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "http://localhost:3001/handleBlog/getBlogById",
+        `${process.env.REACT_APP_API_URL}/handleBlog/getBlogById`,
         {
           blogID: blogID,
         }
@@ -74,7 +74,7 @@ export const fetchComments = createAsyncThunk(
   async (blogId, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        `http://localhost:3001/handleBlog/fetchComment`,
+        `${process.env.REACT_APP_API_URL}/handleBlog/fetchComment`,
         { blogID: blogId }
       );
       return response.data.response; // Assuming the response structure includes the comments in a response field
@@ -90,7 +90,7 @@ export const postComment = createAsyncThunk(
   async (commentData, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        `http://localhost:3001/handleBlog/addComment`,
+        `${process.env.REACT_APP_API_URL}/handleBlog/addComment`,
         commentData
       );
       return response.data; // The response structure for a successful comment post
@@ -106,7 +106,7 @@ export const likeBlog = createAsyncThunk(
   async ({ blogID, userID }, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        `http://localhost:3001/handleBlog/likeBlog`,
+        `${process.env.REACT_APP_API_URL}/handleBlog/likeBlog`,
         {
           blogID,
           userID,
@@ -125,7 +125,7 @@ export const unlikeBlog = createAsyncThunk(
   async ({ blogID, userID }, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        `http://localhost:3001/handleBlog/unlikeBlog`,
+        `${process.env.REACT_APP_API_URL}/handleBlog/unlikeBlog`,
         {
           blogID,
           userID,
@@ -143,7 +143,7 @@ export const fetchRelatedBlogs = createAsyncThunk(
   async (blogID, { getState, rejectWithValue }) => {
     try {
       const response = await axios.get(
-        `http://localhost:3001/handleBlog/relatedBlogs/${blogID}`
+        `${process.env.REACT_APP_API_URL}/handleBlog/relatedBlogs/${blogID}`
       );
       return response.data;
     } catch (error) {
@@ -158,7 +158,7 @@ export const fetchUserBlogs = createAsyncThunk(
   async (userID, { getState, rejectWithValue }) => {
     try {
       const response = await axios.get(
-        `http://localhost:3001/handleBlog/getUserBlogs/${userID}`
+        `${process.env.REACT_APP_API_URL}/handleBlog/getUserBlogs/${userID}`
       );
       return response.data;
     } catch (error) {
@@ -173,7 +173,7 @@ export const deleteBlog = createAsyncThunk(
   async (blogID, { getState, rejectWithValue }) => {
     try {
       const response = await axios.post(
-        `http://localhost:3001/handleBlog/deleteBlog`,
+        `${process.env.REACT_APP_API_URL}/handleBlog/deleteBlog`,
         { blogID },
         {
           headers: {
@@ -193,7 +193,7 @@ export const updateBlog = createAsyncThunk(
   async ({ blogId, formData }, { rejectWithValue }) => {
     try {
       const response = await axios.put(
-        `http://localhost:3001/handleBlog/editBlog/${blogId}`,
+        `${process.env.REACT_APP_API_URL}/handleBlog/editBlog/${blogId}`,
         formData,
         {
           headers: {

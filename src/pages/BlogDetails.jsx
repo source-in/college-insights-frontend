@@ -149,7 +149,7 @@ const BlogDetails = () => {
             <Typography variant="p">
               {blog?.authorID?.firstName} {blog?.authorID?.lastName}
             </Typography>
-            <p>{moment(blog?.createdAt).format("MMMM d, YYYY")}</p>
+            <p>{moment(blog?.createdAt).format("MMMM D, YYYY")}</p>
           </div>
         </div>
         <div className="flex flex-col">
@@ -158,7 +158,7 @@ const BlogDetails = () => {
           </Typography>
           {blog?.blogImage && (
             <img
-              src={`http://localhost:3001/static/${blog?.blogImage}`}
+              src={`${blog?.blogImage}`}
               className="mainBlogImage"
               alt="blogPic"
             />
@@ -172,16 +172,13 @@ const BlogDetails = () => {
             ))}
           </div>
         </div>
-        <div className="flex flex-start flex-wrap">
-          {blog?.tags &&
-            blog.tags.map((tag, index) => (
-              <Chip
-                key={index}
-                label={tag.name}
-                sx={{ borderRadius: "4px" }}
-                style={{ marginRight: "8px", marginBottom: "8px" }}
-              />
-            ))}
+        <div className="">
+          <div className="CategoryButtonContainer">
+            {blog?.tags &&
+              blog.tags.map((tag, index) => (
+                <button className="tagButton ">{tag?.name}</button>
+              ))}
+          </div>
         </div>
         <div className="h-8">
           <IconButton
@@ -265,7 +262,7 @@ const BlogDetails = () => {
                 <CardMedia
                   component="img"
                   sx={{ width: 100, height: "100%", flexShrink: 0 }} // Fixed width and height for the image
-                  src={`http://localhost:3001/static/${blog?.blogImage}`}
+                  src={`${blog?.blogImage}`}
                   alt="News image"
                 />
               )}

@@ -113,6 +113,12 @@
   margin-top: 40px;
 }
 
+.blog_card {
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 10px;
+}
+
 .blog_card:hover {
   -webkit-box-shadow: -0.5px 3px 10px 6.5px #dddddd;
   -moz-box-shadow: -0.5px 3px 10px 6.5px #dddddd;

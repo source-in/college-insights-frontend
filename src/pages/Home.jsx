@@ -47,11 +47,8 @@ const Home = () => {
   //   { title: "Blog Post 5", text: "Exploring the outdoors." },
   // ];
   const searchByTag = (tag) => {};
-  useEffect(() => {
-    dispatch(fetchNews());
-  }, [dispatch]);
 
-  console.log(articles, "===");
+  // console.log(articles, "===");
 
   return (
     <div
@@ -157,14 +154,13 @@ const Home = () => {
           <Typography variant="h5" sx={{ marginBottom: "10px" }}>
             Recent News
           </Typography>
-          {articles?.map((article, index) => (
+          {articles.map((article, index) => (
             <NewsCard
               key={index}
               title={article.title}
-              text={article.description}
               imageUrl={article.image_url}
-              published_at={article.published_at}
-              url={article.url}
+              published_at={article.pubDate}
+              url={article.link}
             />
           ))}
         </div>
